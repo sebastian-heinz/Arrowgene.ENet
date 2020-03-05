@@ -19,8 +19,8 @@ jobs:
       - name: Build Release
         id: build_release
         run: |
-          PROJECT_FOLDER=Arrowgene.ENet
-          PROJECT_NAME=Arrowgene.ENet
+          echo ::set-env name=PROJECT_FOLDER::Arrowgene.ENet
+          echo ::set-env name=PROJECT_NAME::Arrowgene.ENet
           VERSION_FILE=${{ github.workspace }}/.version
           VERSION=$(<"$VERSION_FILE")
           echo ::set-env name=VERSION::$VERSION
