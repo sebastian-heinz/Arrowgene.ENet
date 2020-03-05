@@ -19,6 +19,8 @@ jobs:
       - name: Build Release
         id: build_release
         run: |
+          PROJECT_FOLDER=Arrowgene.ENet
+          PROJECT_NAME=Arrowgene.ENet
           VERSION_FILE=${{ github.workspace }}/.version
           VERSION=$(<"$VERSION_FILE")
           echo ::set-env name=VERSION::$VERSION
@@ -26,7 +28,7 @@ jobs:
           mkdir ./release
           for RUNTIME in win-x86 win-x64 linux-x64 osx-x64; do
               # Server
-              dotnet publish Arrowgene.ENet/Arrowgene.ENet.csproj --self-contained true /p:PublishTrimmed=true /p:Version=$VERSION /p:FromMSBuild=true --runtime $RUNTIME --configuration Release --output ./publish/$RUNTIME-$VERSION
+              dotnet publish ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_NAME }}.csproj --self-contained true /p:PublishTrimmed=true /p:Version=$VERSION /p:FromMSBuild=true --runtime $RUNTIME --configuration Release --output ./publish/$RUNTIME-$VERSION
               # Pack
               tar cjf ./release/$RUNTIME-$VERSION.tar.gz ./publish/$RUNTIME-$VERSION
           done
@@ -34,9 +36,9 @@ jobs:
       - name: Publish NuGet
         id: publish_nuget
         run: |
-          dotnet pack Arrowgene.ENet/Arrowgene.ENet.csproj --output ../nupkgs /p:Version=${{ env.VERSION }}
-          curl -vX PUT -u "sebastian-heinz:${{ secrets.GITHUB_TOKEN }}" -F package=@../nupkgs/Arrowgene.ENet.${{ env.VERSION }}.nupkg https://nuget.pkg.github.com/sebastian-heinz/
-          dotnet nuget push ../nupkgs/Arrowgene.ENet.${{ env.VERSION }}.nupkg --api-key ${{ secrets.NUGET_DEPLOY_KEY }} --source https://www.nuget.org/api/v2/package
+          dotnet pack ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_NAME }}.csproj --output ../nupkgs /p:Version=${{ env.VERSION }}
+          curl -vX PUT -u "sebastian-heinz:${{ secrets.GITHUB_TOKEN }}" -F package=@../nupkgs/${{ env.PROJECT_NAME }}.${{ env.VERSION }}.nupkg https://nuget.pkg.github.com/sebastian-heinz/
+          dotnet nuget push ../nupkgs/${{ env.PROJECT_NAME }}.${{ env.VERSION }}.nupkg --source https://www.nuget.org/api/v2/package --api-key ${{ secrets.NUGET_DEPLOY_KEY }} 
 
       - name: Create Release
         id: create_release
