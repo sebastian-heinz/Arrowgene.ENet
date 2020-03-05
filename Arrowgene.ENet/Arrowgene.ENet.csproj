@@ -3,6 +3,15 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>Arrowgene.ENet</RootNamespace>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Company>Arrowgene</Company>
+        <Copyright>Copyright © 2020 Arrowgene</Copyright>
+        <Version>$(Version)</Version>
+        <Authors>sebastian-heinz</Authors>
+        <Description>Implementation of the ENet Protocol in C#</Description>
+        <PackageProjectUrl>https://github.com/sebastian-heinz/Arrowgene.ENet</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/sebastian-heinz/Arrowgene.ENet</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>enet,network,udp.socket</PackageTags>
     </PropertyGroup>
     <PropertyGroup Condition="true">
         <!-- toggle to allow unsafe implementation -->
