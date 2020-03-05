@@ -50,6 +50,13 @@ advantage of C# features and increase readability where possible.
 - [ ] create unit tests
 - [ ] provide usage examples
 
+## Version
+
+The major and minor fields are used to denote the ENet version.
+The patch field is used for updates of this project.
+ex.:
+`1.314.0` -> ENet Version 1.3.14
+
 ## Example
 
 ### Server
